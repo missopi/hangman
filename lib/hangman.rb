@@ -7,6 +7,7 @@ class Player
   def initialize
     puts 'Please enter your name.'
     @name = gets.chomp.capitalize!
+    puts ' '
   end
 end
 
@@ -15,13 +16,6 @@ class Man
   attr_reader :man
   
   def initialize
-    puts ' '
-    puts ' --------  '
-    puts ' |      |  '
-    puts ' |      O  '
-    puts ' |     /|\ '
-    puts ' |     / \ '
-    puts ' '
     @man = Array.new(8,' ')
     @hanged_man = ['|', '-', 'O', '|', '/', '\\', '/', '\\', '|']
   end
@@ -46,7 +40,7 @@ class Word
   attr_reader :word
 
   def initialize
-    @word = Array.new(12, '_')
+    @word = Array.new(12, '_ ')
   end
     
   def display_word(word)
@@ -61,10 +55,19 @@ end
   
 class Game
   def initialize
-    puts ' '
-    puts '========== Hangman =========='
-    puts ' '
+    puts "\n============= Hangman =============\n\n"
+    puts "You will have 8 turns to guess the hidden word.\n\nEach wrong letter gets you a step closer to being hanged.\n\n"
+    puts ' --------  '  
+    puts ' |      |  '
+    puts ' |      O  '
+    puts ' |     /|\ '
+    puts ' |     / \ '
+    puts '---- '
+    puts "\nThe hidden word will be shown as a row of dashes representing each letter of the word.\n"
+    puts "\n_ _ _ _ _ _ _\n\nEach correct letter will be displayed in the word.\n"
+    puts "\n_ a _ _ _ a _\n\n========== End of Rules ==========\n\n"
     @player = Player.new
+    @man = Man.new
   end
 
   def move
@@ -76,3 +79,5 @@ class Game
   end
 
 end
+
+Game.new
