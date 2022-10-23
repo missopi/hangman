@@ -42,16 +42,20 @@ class Man
   end
 end
 
-Man.new
-  
 class Word
+  attr_reader :word
+
   def initialize
+    @word = Array.new(12, '_')
   end
     
-  def display_blank_word(word)
+  def display_word(word)
+    puts "#{word[0]} #{word[1]} #{word[2]} #{word[3]} #{word[4]} #{word[5]} #{word[6]} #{word[7]} #{word[8]} #{word[9]} #{word[10]} #{word[11]}"
   end
     
-  def update_word(hanging_man)
+  def update_word(index, letter)
+    word[index] = letter
+    display_word(word)
   end
 end
   
