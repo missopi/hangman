@@ -60,4 +60,19 @@ class Word
 end
   
 class Game
+  def initialize
+    puts ' '
+    puts '========== Hangman =========='
+    puts ' '
+    @player = Player.new
+  end
+
+  def move
+    over?
+    @man = Man.new
+    @word = Word.new
+    @turn = 1
+    player_turn while @turn < 9
+  end
+
 end
