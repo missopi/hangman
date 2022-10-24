@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-# class for assigning the players
+require_relative 'rules.rb'
+
+# class for assigning the player
 class Player
   attr_reader :name
   
@@ -36,68 +38,20 @@ class Man
   end
 end
 
-class Word
-  attr_reader :word,
-
-  def initialize
-    @word = 'hippopotamus'
-    @available_letters = ("a".."z").map { |char| char }
-  end
-
-  def display_word(word)
-    word.split("").map do |char|
-      if @available_letters.include?(char.downcase)
-        " _ "
-      else
-        " " + char.downcase + " "
-      end
-    end
-    .join("")
-  end
-end
-
-class Rules
-    def initialize
-        puts "\n============= Hangman =============\n\n"
-        puts "You will have 9 turns to guess the hidden word.\n\nEach wrong letter gets you a step closer to being hanged.\n\n"
-        puts ' --------  '  
-        puts ' |      |  '
-        puts ' |      O  '
-        puts ' |     /|\ '
-        puts ' |     / \ '
-        puts '---- '
-        puts "\nThe hidden word will be shown as a row of dashes representing each letter of the word.\n"
-        puts "\n_ _ _ _ _ _ _\n\nEach correct letter will be displayed in the word.\n"
-        puts "\n_ a _ _ _ a _\n\n========== End of Rules ==========\n\n"
-    end
-end
-  
+# class for playing the game
 class Game
+  attr_reader :word
+
+  LETTERS = ('a'..'z').map { |char| char }
+
   def initialize
     @rules = Rules.new
     @player = Player.new
   end
 
   def move
-    over?
-    @man = Man.new
-    @word = Word.new
-    Word.display_word(word)
     @incorrect_guesses = 0
     player_turn while @incorrect_guesses < 9
   end
 
-  def player_turn
-    if @word.includes?(letter)
-      update_word(index, letter)
-    else
-      @incorrect_guesses += 1
-    end
-  end
 end
-
-# track letters_guessed = []
-# track correct & incorrect guesses
-# win/lose?
-# current word
-# current state of hanged man
