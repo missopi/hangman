@@ -53,6 +53,9 @@ class Game
     @incorrect_guesses = 0
     player_turn while @incorrect_guesses < 9
   end
+  def choose_word
+    words = File.readlines('google-10000-english-no-swears.txt')
+  end
 
   def player_turn
     puts 'Choose a word.'
