@@ -37,20 +37,22 @@ class Man
 end
 
 class Word
-  attr_reader :word, :letter
+  attr_reader :word,
 
   def initialize
-    @word = Array.new(12, '_ ')
-    @letter = ("a".."z").map { |char| char }
+    @word = 'hippopotamus'
+    @available_letters = ("a".."z").map { |char| char }
   end
-    
+
   def display_word(word)
-    puts "#{word[0]} #{word[1]} #{word[2]} #{word[3]} #{word[4]} #{word[5]} #{word[6]} #{word[7]} #{word[8]} #{word[9]} #{word[10]} #{word[11]}"
-  end
-    
-  def update_word(index, letter)
-    word[index] = letter
-    display_word(word)
+    word.split("").map do |char|
+      if @available_letters.include?(char.downcase)
+        " _ "
+      else
+        " " + char.downcase + " "
+      end
+    end
+    .join("")
   end
 end
   
@@ -68,17 +70,25 @@ class Game
     puts "\n_ _ _ _ _ _ _\n\nEach correct letter will be displayed in the word.\n"
     puts "\n_ a _ _ _ a _\n\n========== End of Rules ==========\n\n"
     @player = Player.new
-    @man = Man.new
+    
   end
 
   def move
     over?
     @man = Man.new
     @word = Word.new
-    @turn = 1
-    player_turn while @turn < 10
+    Word.display_word(word)
+    @incorrect_guesses = 0
+    player_turn while @incorrect_guesses < 9
   end
 
+  def player_turn
+    if @word.includes?(letter)
+      update_word(index, letter)
+    else
+      @incorrect_guesses += 1
+    end
+  end
 end
 
 # track letters_guessed = []
