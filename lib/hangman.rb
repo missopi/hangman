@@ -37,10 +37,11 @@ class Man
 end
 
 class Word
-  attr_reader :word
+  attr_reader :word, :letter
 
   def initialize
     @word = Array.new(12, '_ ')
+    @letter = ("a".."z").map { |char| char }
   end
     
   def display_word(word)
