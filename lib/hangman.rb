@@ -16,7 +16,7 @@ class Man
   attr_reader :man
   
   def initialize
-    @man = Array.new(8,' ')
+    @man = Array.new(9,' ')
     @hanged_man = ['|', '-', 'O', '|', '/', '\\', '/', '\\', '|']
   end
   
@@ -56,7 +56,7 @@ end
 class Game
   def initialize
     puts "\n============= Hangman =============\n\n"
-    puts "You will have 8 turns to guess the hidden word.\n\nEach wrong letter gets you a step closer to being hanged.\n\n"
+    puts "You will have 9 turns to guess the hidden word.\n\nEach wrong letter gets you a step closer to being hanged.\n\n"
     puts ' --------  '  
     puts ' |      |  '
     puts ' |      O  '
@@ -75,7 +75,7 @@ class Game
     @man = Man.new
     @word = Word.new
     @turn = 1
-    player_turn while @turn < 9
+    player_turn while @turn < 10
   end
 
 end
