@@ -53,6 +53,30 @@ class Game
     @incorrect_guesses = 0
     player_turn while @incorrect_guesses < 9
   end
+
+  def player_turn
+    puts 'Choose a word.'
+    word = gets.chomp
+    while !won?(word) && !lost?
+      puts '==========================================================='
+      puts 'Try to save the hanging man!!!'
+      puts display_word(word)
+      puts 'The letters you can choose from are below:'
+      puts LETTERS.join(' - ')
+      puts 'Choose a letter:'
+      letter = gets.chomp
+      check_guess(word, letter)
+    end
+
+    puts '============================================================='
+
+    if won?(word)
+      puts 'Congratulations! you saved the hanging man!'
+    else
+      puts 'Better luck next time. This time you lost.'
+    end
+  end
+
  
   def display_word(word)
     word.split('').map do |char|
