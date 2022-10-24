@@ -76,6 +76,13 @@ class Game
     puts display_word(word)
   end
 
+  def won?(word)
+    display_word(word).split(" ").join("").downcase == word.downcase
+  end
+  
+  def lost?
+    @incorrect_guesses == 9
+  end
 
 end
 
