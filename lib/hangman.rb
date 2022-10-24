@@ -58,22 +58,23 @@ class Game
     puts 'Choose a word.'
     word = gets.chomp
     while !won?(word) && !lost?
-      puts '==========================================================='
-      puts 'Try to save the hanging man!!!'
+      puts "\n===========================================================\n\n"
+      puts "Try to save the hanging man!!!\n\n"
       puts display_word(word)
-      puts 'The letters you can choose from are below:'
+      puts "\nThe letters you can choose from are below:\n\n"
       puts LETTERS.join(' - ')
-      puts 'Choose a letter:'
+      puts "\nChoose a letter:\n"
       letter = gets.chomp
       check_guess(word, letter)
     end
 
-    puts '============================================================='
+    puts "\n=============================================================\n"
 
     if won?(word)
-      puts 'Congratulations! you saved the hanging man!'
+      puts "\nCongratulations! you saved the hanging man!\n\n"
     else
-      puts 'Better luck next time. This time you lost.'
+      puts "\nBetter luck next time. This time you lost.\n"
+      puts "The hidden word was '#{word}'.\n\n"
     end
   end
 
