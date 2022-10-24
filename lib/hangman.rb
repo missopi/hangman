@@ -21,7 +21,7 @@ class Man
   end
   
   def update_man(index, hanged_man)
-    man[index] = hanged_man
+    man[index] = hanged_man[index]
     display_man(man)
   end
   
@@ -80,4 +80,8 @@ class Game
 
 end
 
-Game.new
+# track letters_guessed = []
+# track correct & incorrect guesses
+# win/lose?
+# current word
+# current state of hanged man
