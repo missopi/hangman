@@ -53,5 +53,20 @@ class Game
     @incorrect_guesses = 0
     player_turn while @incorrect_guesses < 9
   end
+  
+      
+  def display_word(word)
+    word.split('').map do |char|
+      if LETTERS.include?(char.downcase)
+        ' _ '
+      else
+        ' ' + char.downcase + ' '
+      end
+    end
+    .join("")
+  end
+
 
 end
+
+Game.new.move
