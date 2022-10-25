@@ -40,7 +40,6 @@ end
 
 # class for playing the game
 class Game
-  attr_reader :word
 
   LETTERS = ('a'..'z').map { |char| char }
 
@@ -51,21 +50,23 @@ class Game
 
   def choose_word
     dictionary = File.readlines('google-10000-english-no-swears.txt')
-    word = []
+    words = []
     dictionary.each do |line|
       line.chomp!
-      word << line if line.length >=5 && line.length <= 12
+      words << line if line.length.between?(5, 12)
     end
-    puts word.sample
+    puts words.sample
   end
 
   def move
     @incorrect_guesses = 0
+    @incorrect_letters = []
     player_turn while @incorrect_guesses < 9
   end
 
   def player_turn
     word = choose_word
+    word = word.to_s.chomp
     while !won?(word) && !lost?
       puts "\n===========================================================\n\n"
       puts "Try to save the hanging man!!!\n\n"
@@ -106,8 +107,10 @@ class Game
     else
       LETTERS.delete(char.downcase)
       @incorrect_guesses += 1
+      @incorrect_letters << char.downcase
     end
     puts display_word(word)
+    puts @incorrect_letters.join(' ')
   end
 
   def won?(word)
