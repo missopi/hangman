@@ -55,7 +55,7 @@ class Game
       line.chomp!
       words << line if line.length.between?(5, 12)
     end
-    puts words.sample
+    words.sample
   end
 
   def move
@@ -66,14 +66,15 @@ class Game
 
   def player_turn
     word = choose_word
-    word = word.to_s.chomp
     while !won?(word) && !lost?
       puts "\n===========================================================\n\n"
       puts "Try to save the hanging man!!!\n\n"
       puts display_word(word)
+      puts ' '
+      puts @incorrect_letters.join(' ')
       puts "\nThe letters you can choose from are below:\n\n"
       puts LETTERS.join(' - ')
-      puts "\nChoose a letter:\n"
+      puts "\nChoose a letter:\n\n"
       letter = gets.chomp
       check_guess(word, letter)
     end
@@ -107,10 +108,9 @@ class Game
     else
       LETTERS.delete(char.downcase)
       @incorrect_guesses += 1
-      @incorrect_letters << char.downcase
+      @incorrect_letters << char.downcase unless @incorrect_letters.include?(char.downcase) || word.downcase.include?(char.downcase)
     end
     puts display_word(word)
-    puts @incorrect_letters.join(' ')
   end
 
   def won?(word)
