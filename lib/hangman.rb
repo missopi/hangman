@@ -49,17 +49,23 @@ class Game
     @player = Player.new
   end
 
+  def choose_word
+    dictionary = File.readlines('google-10000-english-no-swears.txt')
+    word = []
+    dictionary.each do |line|
+      line.chomp!
+      word << line if line.length >=5 && line.length <= 12
+    end
+    puts word.sample
+  end
+
   def move
     @incorrect_guesses = 0
     player_turn while @incorrect_guesses < 9
   end
-  def choose_word
-    words = File.readlines('google-10000-english-no-swears.txt')
-  end
 
   def player_turn
-    puts 'Choose a word.'
-    word = gets.chomp
+    word = choose_word
     while !won?(word) && !lost?
       puts "\n===========================================================\n\n"
       puts "Try to save the hanging man!!!\n\n"
