@@ -108,7 +108,9 @@ class Game
     else
       LETTERS.delete(char.downcase)
       @incorrect_guesses += 1
-      @incorrect_letters << char.downcase unless @incorrect_letters.include?(char.downcase) || word.downcase.include?(char.downcase)
+      unless @incorrect_letters.include?(char.downcase) || word.downcase.include?(char.downcase)
+        @incorrect_letters << char.downcase 
+      end
     end
     puts display_word(word)
   end
