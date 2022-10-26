@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'rules'
+require_relative 'colour'
 
 # class for assigning the player
 class Player
@@ -37,28 +38,27 @@ class Game
   def move
     word = choose_word
     player_turn(word) while !won?(word) && !lost?
-    puts "\n========================================================\n"
+    puts "\n========================================================\n".yellow
     end_of_game(word)
   end
 
   def player_turn(word)
-    puts "\n========================================================\n\n"
+    puts "\n========================================================\n\n".yellow
     puts "You have #{@lives} incorrect guesses left."
     puts "Try to save the hanging man!!!\n\n"
-    print_man
+    print_man_hanging
     puts display_word(word)
-    puts "\nIncorrect letters: #{@incorrect_letters.join(' ')}"
+    puts "\nIncorrect letters: #{@incorrect_letters.join(' ').red}"
     puts "\nThe letters you can choose from are:\n\n"
     puts LETTERS.join(' - ')
     print "\nChoose a letter: "
     letter = gets.chomp
     check_guess(word, letter) if letter_valid?(letter)
+    puts 'Invalid entry'.red unless letter_valid?(letter)
   end
 
   def letter_valid?(letter)
     return true if letter.length == 1 && letter.between?('a', 'z')
-
-    puts 'Invalid entry' unless letter_valid?(letter)
   end
 
   def display_word(word)
