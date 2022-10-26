@@ -61,12 +61,12 @@ class Game
     @man = Man.new
     word = choose_word
     player_turn(word) while !won?(word) && !lost?
-    puts "\n======================================================\n"
+    puts "\n========================================================\n"
     end_of_game(word)
   end
 
   def player_turn(word)
-    puts "\n======================================================\n\n"
+    puts "\n========================================================\n\n"
     puts "Try to save the hanging man!!!\n\n"
     puts display_word(word)
     puts "\nIncorrect guesses: #{@incorrect_letters.join(' ')}"
@@ -107,9 +107,11 @@ class Game
   def end_of_game(word)
     if won?(word)
       puts "\nCongratulations! you saved the hanging man!\n\n"
+      puts "The hidden word was '#{word}'.\n\n"
       exit
     else
-      puts "\nBetter luck next time. This time you lost.\nThe hidden word was '#{word}'.\n\n"
+      puts "\nBetter luck next time. This time you lost.\n"
+      puts "The hidden word was '#{word}'.\n\n"
     end
   end
 
