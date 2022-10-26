@@ -13,29 +13,6 @@ class Player
   end
 end
 
-# class for designing and displaying the hanging man
-class Man
-  attr_reader :man
-
-  def initialize
-    @man = Array.new(9, ' ')
-    @hanged_man = ['|', '-', 'O', '|', '/', '\\', '/', '\\', '|']
-  end
-
-  def update_man(index, hanged_man)
-    man[index] = hanged_man[index]
-    display_man(man)
-  end
-
-  def display_man(man)
-    puts "\n #{man[1]}#{man[1]}#{man[1]}#{man[1]}#{man[1]}#{man[1]}#{man[1]}#{man[1]}  "
-    puts " #{man[0]}      #{man[8]}  "
-    puts " #{man[0]}      #{man[2]}  "
-    puts " #{man[0]}     #{man[4]}#{man[3]}#{man[5]} "
-    puts " #{man[0]}     #{man[6]} #{man[7]} \n"
-  end
-end
-
 # class for playing the game
 class Game
   LETTERS = ('a'..'z').map { |char| char }
@@ -43,9 +20,8 @@ class Game
   def initialize
     @rules = Rules.new
     @player = Player.new
-    @incorrect_guesses = 0
+    @lives = 9
     @incorrect_letters = []
-    @man = Man.new
   end
 
   def choose_word
@@ -67,12 +43,14 @@ class Game
 
   def player_turn(word)
     puts "\n========================================================\n\n"
+    puts "You have #{@lives} incorrect guesses left."
     puts "Try to save the hanging man!!!\n\n"
+    print_man
     puts display_word(word)
-    puts "\nIncorrect guesses: #{@incorrect_letters.join(' ')}"
+    puts "\nIncorrect letters: #{@incorrect_letters.join(' ')}"
     puts "\nThe letters you can choose from are:\n\n"
     puts LETTERS.join(' - ')
-    puts "\nChoose a letter:\n"
+    print "\nChoose a letter: "
     letter = gets.chomp
     check_guess(word, letter) if letter_valid?(letter)
   end
@@ -96,7 +74,7 @@ class Game
 
   def check_guess(word, char)
     unless word.downcase.include?(char.downcase) && LETTERS.include?(char.downcase)
-      @incorrect_guesses += 1
+      @lives -= 1
       unless @incorrect_letters.include?(char.downcase) || word.downcase.include?(char.downcase)
         @incorrect_letters << char.downcase
       end
@@ -110,7 +88,8 @@ class Game
       puts "The hidden word was '#{word}'.\n\n"
       exit
     else
-      puts "\nBetter luck next time. This time you lost.\n"
+      print_hanged_man
+      puts "\nBetter luck next time. This time you lost.\n\n"
       puts "The hidden word was '#{word}'.\n\n"
     end
   end
@@ -120,7 +99,79 @@ class Game
   end
 
   def lost?
-    @incorrect_guesses == 9
+    @lives.zero?
+  end
+
+  def print_man_hanging
+    case @lives
+    when 9
+      puts "\n\n\n\n\n\n"
+    when 8
+      puts ' --------  '
+      puts ' | '
+      puts ' | '
+      puts ' | '
+      puts ' | '
+      puts " ----\n\n"
+    when 7
+      puts ' --------  '
+      puts ' | '
+      puts ' |      O'
+      puts ' |      '
+      puts ' | '
+      puts " ----\n\n"
+    when 6
+      puts ' --------  '
+      puts ' | '
+      puts ' |      O  '
+      puts ' |      | '
+      puts ' | '
+      puts " ----\n\n"
+    when 5
+      puts ' --------  '
+      puts ' | '
+      puts ' |      O  '
+      puts ' |      |\ '
+      puts ' | '
+      puts " ----\n\n"
+    when 4
+      puts ' --------  '
+      puts ' | '
+      puts ' |      O  '
+      puts ' |     /|\ '
+      puts ' | '
+      puts " ----\n\n"
+    when 3
+      puts ' --------  '
+      puts ' | '
+      puts ' |      O  '
+      puts ' |     /|\ '
+      puts ' |       \ '
+      puts " ----\n\n"
+    when 2
+      puts ' --------  '
+      puts ' | '
+      puts ' |      O  '
+      puts ' |     /|\ '
+      puts ' |     / \ '
+      puts " ----\n\n"
+    when 1
+      puts ' --------  '
+      puts ' |/  '
+      puts ' |      O  '
+      puts ' |     /|\ '
+      puts ' |     / \ '
+      puts " ----\n\n"
+    end
+  end
+
+  def print_hanged_man
+    puts ' --------  '
+    puts ' |/     |  '
+    puts ' |      O  '
+    puts ' |     /|\ '
+    puts ' |     / \ '
+    puts " ----\n\n"
   end
 end
 
