@@ -61,20 +61,26 @@ class Game
     @man = Man.new
     word = choose_word
     player_turn(word) while !won?(word) && !lost?
-    puts "\n=====================================\n"
+    puts "\n======================================================\n"
     end_of_game(word)
   end
 
   def player_turn(word)
-    puts "\n==================================\n\n"
+    puts "\n======================================================\n\n"
     puts "Try to save the hanging man!!!\n\n"
     puts display_word(word)
     puts "\nIncorrect guesses: #{@incorrect_letters.join(' ')}"
-    puts "\nThe letters you can choose from are below:\n\n"
+    puts "\nThe letters you can choose from are:\n\n"
     puts LETTERS.join(' - ')
-    puts "\nChoose a letter:\n\n"
+    puts "\nChoose a letter:\n"
     letter = gets.chomp
-    check_guess(word, letter)
+    check_guess(word, letter) if letter_valid?(letter)
+  end
+
+  def letter_valid?(letter)
+    return true if letter.length == 1 && letter.between?('a', 'z')
+
+    puts 'Invalid entry' unless letter_valid?(letter)
   end
 
   def display_word(word)
@@ -96,7 +102,6 @@ class Game
       end
     end
     LETTERS.delete(char.downcase)
-    puts display_word(word)
   end
 
   def end_of_game(word)
