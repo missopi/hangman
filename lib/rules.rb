@@ -1,3 +1,5 @@
+require_relative 'colour'
+
 class Rules
   def initialize
     rules_start
@@ -5,7 +7,7 @@ class Rules
   end
 
   def rules_start
-    puts "\n======================= Hangman ========================\n\n"
+    puts "\n======================= Hangman ========================\n\n".yellow
     puts "You will have 9 turns to guess the hidden word.\n\nEach wrong letter gets you a step closer to being hanged.\n\n"
     puts ' --------  '  
     puts ' |/     |  '
@@ -21,6 +23,6 @@ class Rules
     puts "Each correct letter will be displayed in the word.\n"
     puts "\n_  a  _  _  _  a  _\n\n"
     puts "Incorrect guesses will be listed below the missing word.\n\n"
-    puts "==================== End of Rules ======================\n\n"
+    puts "==================== End of Rules ======================\n\n".yellow
   end
 end
