@@ -43,6 +43,9 @@ class Game
   def initialize
     @rules = Rules.new
     @player = Player.new
+    @incorrect_guesses = 0
+    @incorrect_letters = []
+    @man = Man.new
   end
 
   def choose_word
@@ -56,9 +59,6 @@ class Game
   end
 
   def move
-    @incorrect_guesses = 0
-    @incorrect_letters = []
-    @man = Man.new
     word = choose_word
     player_turn(word) while !won?(word) && !lost?
     puts "\n========================================================\n"
