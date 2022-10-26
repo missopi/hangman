@@ -71,7 +71,7 @@ class Game
       puts "Try to save the hanging man!!!\n\n"
       puts display_word(word)
       puts ' '
-      puts @incorrect_letters.join(' ')
+      puts "Incorrect guesses: #{@incorrect_letters.join(' ')}"
       puts "\nThe letters you can choose from are below:\n\n"
       puts LETTERS.join(' - ')
       puts "\nChoose a letter:\n\n"
@@ -83,6 +83,7 @@ class Game
 
     if won?(word)
       puts "\nCongratulations! you saved the hanging man!\n\n"
+      exit
     else
       puts "\nBetter luck next time. This time you lost.\n"
       puts "The hidden word was '#{word}'.\n\n"
