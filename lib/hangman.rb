@@ -89,7 +89,7 @@ class Game
       exit
     else
       print_hanged_man
-      puts "\nBetter luck next time. This time you lost.\n\n"
+      puts "\nBetter luck next time. \n\n"
       puts "The hidden word was '#{word}'.\n\n"
     end
   end
@@ -128,9 +128,9 @@ class Game
     when 3
       puts " --------  \n | \n |      O \n |     /|\\ \n |       \\ \n ----\n\n"
     when 2
-      puts " --------  \n | \n |      O \n |     /|\\ \n |      /\\ \n ----\n\n"
+      puts " --------  \n | \n |      O \n |     /|\\ \n |     / \\ \n ----\n\n"
     when 1
-      puts " --------  \n |/ \n |      O \n |     /|\\ \n |      /\\ \n ----\n\n"
+      puts " --------  \n |/ \n |      O \n |     /|\\ \n |     / \\ \n ----\n\n"
     end
   end
 end
