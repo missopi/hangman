@@ -94,6 +94,15 @@ class Game
     end
   end
 
+  def print_hanged_man
+    puts ' --------  '
+    puts ' |/     |  '
+    puts ' |      O  '
+    puts ' |     /|\ '
+    puts ' |     / \ '
+    puts " ----\n\n"
+  end
+
   def won?(word)
     display_word(word).split(' ').join('').downcase == word.downcase
   end
@@ -107,71 +116,22 @@ class Game
     when 9
       puts "\n\n\n\n\n\n"
     when 8
-      puts ' --------  '
-      puts ' | '
-      puts ' | '
-      puts ' | '
-      puts ' | '
-      puts " ----\n\n"
+      puts " --------  \n | \n | \n | \n | \n ----\n\n"
     when 7
-      puts ' --------  '
-      puts ' | '
-      puts ' |      O'
-      puts ' |      '
-      puts ' | '
-      puts " ----\n\n"
+      puts " --------  \n | \n |      O \n | \n | \n ----\n\n"
     when 6
-      puts ' --------  '
-      puts ' | '
-      puts ' |      O  '
-      puts ' |      | '
-      puts ' | '
-      puts " ----\n\n"
+      puts " --------  \n | \n |      O \n |      | \n | \n ----\n\n"
     when 5
-      puts ' --------  '
-      puts ' | '
-      puts ' |      O  '
-      puts ' |      |\ '
-      puts ' | '
-      puts " ----\n\n"
+      puts " --------  \n | \n |      O \n |      |\\ \n | \n ----\n\n"
     when 4
-      puts ' --------  '
-      puts ' | '
-      puts ' |      O  '
-      puts ' |     /|\ '
-      puts ' | '
-      puts " ----\n\n"
+      puts " --------  \n | \n |      O \n |     /|\\ \n | \n ----\n\n"
     when 3
-      puts ' --------  '
-      puts ' | '
-      puts ' |      O  '
-      puts ' |     /|\ '
-      puts ' |       \ '
-      puts " ----\n\n"
+      puts " --------  \n | \n |      O \n |     /|\\ \n |       \\ \n ----\n\n"
     when 2
-      puts ' --------  '
-      puts ' | '
-      puts ' |      O  '
-      puts ' |     /|\ '
-      puts ' |     / \ '
-      puts " ----\n\n"
+      puts " --------  \n | \n |      O \n |     /|\\ \n |      /\\ \n ----\n\n"
     when 1
-      puts ' --------  '
-      puts ' |/  '
-      puts ' |      O  '
-      puts ' |     /|\ '
-      puts ' |     / \ '
-      puts " ----\n\n"
+      puts " --------  \n |/ \n |      O \n |     /|\\ \n |      /\\ \n ----\n\n"
     end
-  end
-
-  def print_hanged_man
-    puts ' --------  '
-    puts ' |/     |  '
-    puts ' |      O  '
-    puts ' |     /|\ '
-    puts ' |     / \ '
-    puts " ----\n\n"
   end
 end
 
