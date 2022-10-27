@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'start_game'
 require_relative 'rules'
 require_relative 'colour'
 
@@ -31,6 +30,12 @@ class Game
     end_of_game(word)
   end
 
+  def choose_letter
+    print "\nChoose a letter or type 'save' to save your progress: "
+    @user_input = gets.chomp
+    return 'save' if @user_input.downcase == 'save'
+  end
+
   def player_turn(word)
     puts "\n========================================================\n\n".yellow
     puts "You have #{@lives} incorrect guesses left."
@@ -40,16 +45,13 @@ class Game
     puts "\nIncorrect letters: #{@incorrect_letters.join(' ').red}"
     puts "\nThe letters you can choose from are:\n\n"
     puts LETTERS.join(' - ')
-    print "\nChoose a letter or type 'save' to save your progress: "
-    user_input = gets.chomp
-    return 'save' if user_input.downcase == 'save'
-
-    check_guess(word, user_input) if letter_valid?(user_input)
-    puts 'Invalid entry'.red unless letter_valid?(user_input)
+    choose_letter
+    check_guess(word, @user_input) if letter_valid?
+    puts 'Invalid entry'.red unless letter_valid? || @user_input == 'save'
   end
 
-  def letter_valid?(user_input)
-    return true if user_input.length == 1 && user_input.between?('a', 'z')
+  def letter_valid?
+    return true if @user_input.length == 1 && @user_input.between?('a', 'z')
   end
 
   def display_word(word)
@@ -86,12 +88,7 @@ class Game
   end
 
   def print_hanged_man
-    puts ' --------  '
-    puts ' |/     |  '
-    puts ' |      O  '
-    puts ' |     /|\ '
-    puts ' |     / \ '
-    puts " ----\n\n"
+    puts " --------  \n |/     | \n |      O \n |     /|\\ \n |     / \\ \n ----\n\n"
   end
 
   def won?(word)
@@ -100,6 +97,10 @@ class Game
 
   def lost?
     @lives.zero?
+  end
+
+  def over?
+    won?(word) || lost?
   end
 
   def print_man_hanging

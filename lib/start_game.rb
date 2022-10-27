@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'game'
 require_relative 'colour'
 require 'YAML'
-
 
 def save_game(current_game)
   Dir.mkdir 'saved' unless Dir.exist? 'saved'
@@ -12,9 +13,9 @@ def save_game(current_game)
 end
 
 def load_game
-  file_name = choose_game
+  filename = choose_game
   saved = File.open(File.join(Dir.pwd, filename), 'r')
-  loaded_game = YAML.load(saved)
+  loaded_game = YAML.safe_load(saved)
   saved.close
   loaded_game
 end
@@ -25,22 +26,23 @@ def choose_game
   puts filenames
   filename = gets.chomp
   return load_file if games.include?(load_file)
+
   puts 'The game you requested does not exist.'.red unless filenames.include?(filename)
 end
 
-puts "\n=================== Hangman =======================\n\n".yellow
+puts "\n======================= Hangman ========================\n\n".yellow
 puts 'Would you like to 1) Start a new game.'
 puts '                  2) Load an existing game.'
-puts "\n===================================================\n\n".yellow
+puts "\n========================================================\n\n".yellow
 user_choice = gets.chomp
-puts "invalid choice. Please input '1' or '2'." unless user_choice == '1' || user_choice == '2'
+puts "invalid choice. Please input '1' or '2'." unless %w[1 2].include?(user_choice)
 
 game = user_choice == '1' ? Game.new.move : load_game
 
-until game.win? || game.lost?
-  if game.user_input == 'save'
+until game.over?
+  if game.choose_letter == 'save' 
     if save_game(game)
-      puts "Your game has been saved. Thanks for playing!"
+      puts 'Your game has been saved. Thanks for playing!'
       break
     end
   end
