@@ -11,6 +11,10 @@ class Game
     @rules = Rules.new
     @lives = 9
     @incorrect_letters = []
+    word = choose_word
+    player_turn(word) while !won?(word) && !lost?
+    puts "\n========================================================\n".yellow
+    end_of_game(word)
   end
 
   def choose_word
@@ -21,13 +25,6 @@ class Game
       words << line if line.length.between?(5, 12)
     end
     words.sample
-  end
-
-  def move
-    word = choose_word
-    player_turn(word) while !won?(word) && !lost?
-    puts "\n========================================================\n".yellow
-    end_of_game(word)
   end
 
   def choose_letter
