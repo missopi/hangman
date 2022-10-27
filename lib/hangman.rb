@@ -51,8 +51,10 @@ class Game
     puts "\nIncorrect letters: #{@incorrect_letters.join(' ').red}"
     puts "\nThe letters you can choose from are:\n\n"
     puts LETTERS.join(' - ')
-    print "\nChoose a letter: "
+    print "\nChoose a letter or type 'save' to save your progress: "
     letter = gets.chomp
+    return 'save' if letter.downcase == 'save'
+
     check_guess(word, letter) if letter_valid?(letter)
     puts 'Invalid entry'.red unless letter_valid?(letter)
   end
