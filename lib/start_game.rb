@@ -1,4 +1,4 @@
-require_relative 'hangman'
+require_relative 'game'
 require_relative 'colour'
 require 'YAML'
 
