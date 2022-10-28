@@ -40,9 +40,9 @@ end
 # class for playing the game
 class Game
   include Hangman
-  LETTERS = ('a'..'z').map { |char| char }
 
   def initialize
+    @letters = ('a'..'z').map { |char| char }
     @rules = Rules.new
     @lives = 9
     @incorrect_letters = []
@@ -80,7 +80,7 @@ class Game
     puts display_word(word)
     puts "\nIncorrect letters: #{@incorrect_letters.join(' ').red}"
     puts "\nThe letters you can choose from are:\n\n"
-    puts LETTERS.join(' - ')
+    puts @letters.join(' - ')
     choose_letter
     check_guess(word, @user_input) if letter_valid?
     puts 'Invalid entry'.red unless letter_valid? || @user_input == 'save'
@@ -92,7 +92,7 @@ class Game
 
   def display_word(word)
     word.split('').map do |char|
-      if LETTERS.include?(char.downcase)
+      if @letters.include?(char.downcase)
         ' _ '
       else
         " #{char.downcase} "
@@ -102,25 +102,30 @@ class Game
   end
 
   def check_guess(word, char)
-    unless word.downcase.include?(char.downcase) && LETTERS.include?(char.downcase)
+    unless word.downcase.include?(char.downcase) && @letters.include?(char.downcase)
       @lives -= 1
       unless @incorrect_letters.include?(char.downcase) || word.downcase.include?(char.downcase)
         @incorrect_letters << char.downcase
       end
     end
-    LETTERS.delete(char.downcase)
+    @letters.delete(char.downcase)
   end
 
   def end_of_game(word)
     if won?(word)
       puts "\nCongratulations! you saved the hanging man!\n\n"
-      puts "The hidden word was '#{word}'.\n\n"
-      exit
     else
       print_hanged_man
       puts "\nBetter luck next time. \n\n"
-      puts "The hidden word was '#{word}'.\n\n"
     end
+    puts "The hidden word was '#{word}'.\n\n"
+    new_game
+  end
+
+  def new_game
+    puts 'Do you want to play a new game? (y/n)'
+    new_game = gets.chomp.downcase
+    Game.new if new_game == 'y'
   end
 
   def won?(word)
