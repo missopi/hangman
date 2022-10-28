@@ -2,7 +2,7 @@
 
 require_relative 'game'
 require_relative 'colour'
-require 'YAML'
+require 'yaml'
 
 def save_game(current_game)
   Dir.mkdir 'saved' unless Dir.exist? 'saved'
@@ -38,10 +38,4 @@ user_choice = gets.chomp
 puts "invalid choice. Please input '1' or '2'." unless %w[1 2].include?(user_choice)
 
 game = user_choice == '1' ? Game.new : load_game
-
-until game.over?
-  if game.choose_letter == 'save' && save_game(game)
-    puts 'Your game has been saved.'
-    break
-  end
-end
+puts 'Your game has been saved.' if game.choose_letter == 'save' && save_game(game)
