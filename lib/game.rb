@@ -11,6 +11,10 @@ class Game
     @rules = Rules.new
     @lives = 9
     @incorrect_letters = []
+    @move = move
+  end
+
+  def move
     word = choose_word
     player_turn(word) while !won?(word) && !lost?
     puts "\n========================================================\n".yellow
