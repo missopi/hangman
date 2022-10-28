@@ -25,9 +25,7 @@ def choose_game
   filenames = Dir.glob('saved/*').map { |file| file[(file.index.between?('/', '.'))] }
   puts filenames
   filename = gets.chomp
-  return load_file if games.include?(load_file)
-
-  puts 'The game you requested does not exist.'.red unless filenames.include?(filename)
+  puts "#{filename} does not exist.".red unless filenames.include?(filename)
 end
 
 puts "\n======================= Hangman ========================\n\n".yellow
@@ -38,4 +36,9 @@ user_choice = gets.chomp
 puts "invalid choice. Please input '1' or '2'." unless %w[1 2].include?(user_choice)
 
 game = user_choice == '1' ? Game.new : load_game
-puts 'Your game has been saved.' if game.choose_letter == 'save' && save_game(game)
+until game.over?
+  if game.choose_letter == 'save'
+    save_game(game)
+    puts 'Your game has been saved.'
+  end
+end
