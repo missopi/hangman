@@ -3,8 +3,43 @@
 require_relative 'rules'
 require_relative 'colour'
 
+# module for drawing hangman image
+module Hangman
+  def print_man_hanging
+    case @lives
+    when 8
+      puts " --------  \n | \n | \n | \n | \n ----\n\n"
+    when 7
+      puts " --------  \n | \n |      O \n | \n | \n ----\n\n"
+    when 6
+      puts " --------  \n | \n |      O \n |      | \n | \n ----\n\n"
+    when 5
+      puts " --------  \n | \n |      O \n |      |\\ \n | \n ----\n\n"
+    when 4
+      puts " --------  \n | \n |      O \n |     /|\\ \n | \n ----\n\n"
+    when 3
+      puts " --------  \n | \n |      O \n |     /|\\ \n |       \\ \n ----\n\n"
+    when 2
+      puts " --------  \n | \n |      O \n |     /|\\ \n |     / \\ \n ----\n\n"
+    when 1
+      puts " --------  \n |/ \n |      O \n |     /|\\ \n |     / \\ \n ----\n\n"
+    end
+  end
+
+  def print_hanged_man
+    puts ' --------  '
+    puts ' |/     |  '
+    puts ' |      O  '
+    puts ' |     /|\ '
+    puts ' |     / \ '
+    puts '----'
+    puts ' '
+  end
+end
+
 # class for playing the game
 class Game
+  include Hangman
   LETTERS = ('a'..'z').map { |char| char }
 
   def initialize
@@ -88,12 +123,8 @@ class Game
     end
   end
 
-  def print_hanged_man
-    puts " --------  \n |/     | \n |      O \n |     /|\\ \n |     / \\ \n ----\n\n"
-  end
-
   def won?(word)
-    display_word(word).split(' ').join('').downcase == word.downcase
+    @display = display_word(word).split(' ').join('').downcase == word.downcase
   end
 
   def lost?
@@ -101,29 +132,6 @@ class Game
   end
 
   def over?
-    won?(word) || lost?
-  end
-
-  def print_man_hanging
-    case @lives
-    when 9
-      puts "\n\n\n\n\n\n"
-    when 8
-      puts " --------  \n | \n | \n | \n | \n ----\n\n"
-    when 7
-      puts " --------  \n | \n |      O \n | \n | \n ----\n\n"
-    when 6
-      puts " --------  \n | \n |      O \n |      | \n | \n ----\n\n"
-    when 5
-      puts " --------  \n | \n |      O \n |      |\\ \n | \n ----\n\n"
-    when 4
-      puts " --------  \n | \n |      O \n |     /|\\ \n | \n ----\n\n"
-    when 3
-      puts " --------  \n | \n |      O \n |     /|\\ \n |       \\ \n ----\n\n"
-    when 2
-      puts " --------  \n | \n |      O \n |     /|\\ \n |     / \\ \n ----\n\n"
-    when 1
-      puts " --------  \n |/ \n |      O \n |     /|\\ \n |     / \\ \n ----\n\n"
-    end
+    lost? || @display
   end
 end
