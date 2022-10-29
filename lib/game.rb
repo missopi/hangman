@@ -49,6 +49,7 @@ class Game
     @lives = 9
     @incorrect_letters = []
     @word = choose_word
+    begin_game
   end
 
   def begin_game
@@ -165,10 +166,8 @@ class Game
 
   def load_game
     filename = choose_game
-    saved = File.open(File.join(Dir.pwd, filename), 'r')
-    loaded_game = YAML.safe_load(saved)
-    saved.close
-    loaded_game
+    saved_file = File.open(File.join(Dir.pwd, "/saved_games/#{filename}.yaml"), 'r')
+    YAML.safe_load(saved_file)
   end
 
   def choose_game
@@ -176,10 +175,11 @@ class Game
     filenames = Dir.glob('saved_games/*').map { |file| file[(file.index('/') + 1)...(file.index('.'))] }
     puts filenames
     filename = gets.chomp
-    return "/saved_games/#{filename}.yaml" if filenames.include?(filename)
+    return filename if filenames.include?(filename)
 
     puts "#{filename} does not exist.".red
   end
 end
 
-Game.new.begin_game
+game = Game.new
+game.move
