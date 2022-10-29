@@ -2,10 +2,11 @@
 
 require_relative 'rules'
 require_relative 'colour'
+require 'yaml'
 
 # module for drawing hangman image
 module Hangman
-  def print_man_hanging
+  def print_man
     case @lives
     when 8
       puts " --------  \n | \n | \n | \n | \n ----\n\n"
@@ -66,6 +67,12 @@ class Game
     words.sample
   end
 
+  def start_turn_text
+    puts "\n========================================================\n\n".yellow
+    puts "You have #{@lives} incorrect guesses left."
+    puts "Try to save the hanging man!!!\n\n"
+  end
+
   def choose_letter
     print "\nChoose a letter or type 'save' to save your progress: "
     @user_input = gets.chomp
@@ -73,14 +80,11 @@ class Game
   end
 
   def player_turn(word)
-    puts "\n========================================================\n\n".yellow
-    puts "You have #{@lives} incorrect guesses left."
-    puts "Try to save the hanging man!!!\n\n"
-    print_man_hanging
+    start_turn_text
+    print_man
     puts display_word(word)
     puts "\nIncorrect letters: #{@incorrect_letters.join(' ').red}"
-    puts "\nThe letters you can choose from are:\n\n"
-    puts @letters.join(' - ')
+    puts "\nThe letters you can choose from are:\n\n#{@letters.join(' - ')}"
     choose_letter
     check_guess(word, @user_input) if letter_valid?
     puts 'Invalid entry'.red unless letter_valid? || @user_input == 'save'
@@ -140,3 +144,48 @@ class Game
     lost? || @display
   end
 end
+
+# class for saving yaml file of game
+class SaveFile
+  def initialize
+    puts "\n======================= Hangman ========================\n\n".yellow
+    puts 'Would you like to 1) Start a new game.'
+    puts '                  2) Load an existing game.'
+    puts "\n========================================================\n\n".yellow
+    user_choice = gets.chomp
+    puts "invalid choice. Please input '1' or '2'." unless %w[1 2].include?(user_choice)
+    game = user_choice == '1' ? Game.new : load_game
+    until game.over?
+      if game.choose_letter == 'save'
+        save_game(game)
+        puts 'Your game has been saved.'
+      end
+    end
+  end
+
+  def save_game(current_game)
+    Dir.mkdir 'saved' unless Dir.exist? 'saved'
+    puts 'What name would you like to save your file as?'
+    filename = gets.chomp
+    dump = YAML.dump(current_game)
+    File.open(File.join(Dir.pwd, "/saved/#{filename}.yaml"), 'w') { |file| file.write dump }
+  end
+
+  def load_game
+    filename = choose_game
+    saved = File.open(File.join(Dir.pwd, filename), 'r')
+    loaded_game = YAML.safe_load(saved)
+    saved.close
+    loaded_game
+  end
+
+  def choose_game
+    puts 'Enter which saved game would you like to load: '
+    filenames = Dir.glob('saved/*').map { |file| file[(file.index.between?('/', '.'))] }
+    puts filenames
+    filename = gets.chomp
+    puts "#{filename} does not exist.".red unless filenames.include?(filename)
+  end
+end
+
+SaveFile.new
