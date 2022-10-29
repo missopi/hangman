@@ -23,6 +23,5 @@ class Rules
     puts "Each correct letter will be displayed in the word.\n"
     puts "\n_  a  _  _  _  a  _\n\n"
     puts "Incorrect guesses will be listed below the missing word.\n\n"
-    puts "==================== End of Rules ======================\n\n".yellow
   end
 end
