@@ -60,7 +60,7 @@ class Game
     puts "\n\n========================================================\n\n".yellow
     user_choice = gets.chomp
     puts "invalid choice. Please input '1' or '2'." unless %w[1 2].include?(user_choice)
-    user_choice == '1' ? move : load_game
+    user_choice == '1' ? move : LoadGame.new.load
   end
 
   def move
@@ -163,11 +163,15 @@ class Game
     dump = YAML.dump(self)
     File.open(File.join(Dir.pwd, "/saved_games/#{filename}.yaml"), 'w') { |file| file.write dump }
   end
+end
 
-  def load_game
+# class for loading saved game
+class LoadGame
+  def load
     filename = choose_game
     saved_file = File.open(File.join(Dir.pwd, "/saved_games/#{filename}.yaml"), 'r')
-    YAML.safe_load(saved_file, permitted_classes: [Game])
+    yaml = YAML.safe_load(saved_file, permitted_classes: [Game])
+    yaml.move
   end
 
   def choose_game
