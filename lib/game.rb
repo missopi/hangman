@@ -90,7 +90,7 @@ class Game
     puts '                  2) carry on playing'
     user_choice = gets.chomp
     puts "invalid choice. Please input '1' or '2'." unless %w[1 2].include?(user_choice)
-    user_choice == '1' ? begin_game : return
+    user_choice == '1' ? Game.new : return
   end
 
   def player_turn(word)
@@ -153,7 +153,7 @@ class Game
   def new_game
     puts 'Do you want to play a new game? (y/n)'
     new_game = gets.chomp.downcase
-    begin_game if new_game == 'y'
+    Game.new.move if new_game == 'y'
   end
 
   def save_game

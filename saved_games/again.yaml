@@ -1,0 +1,31 @@
+--- !ruby/object:Game
+letters:
+- b
+- c
+- d
+- e
+- f
+- g
+- h
+- j
+- k
+- l
+- m
+- "n"
+- p
+- q
+- r
+- t
+- v
+- w
+- x
+- "y"
+- z
+lives: 5
+incorrect_letters:
+- a
+- s
+- u
+- o
+word: lifetime
+user_input: save
