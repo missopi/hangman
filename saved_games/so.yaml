@@ -1,0 +1,31 @@
+--- !ruby/object:Game
+letters:
+- b
+- c
+- d
+- f
+- g
+- h
+- i
+- j
+- k
+- l
+- m
+- "n"
+- o
+- p
+- q
+- r
+- s
+- u
+- v
+- w
+- x
+- "y"
+- z
+lives: 7
+incorrect_letters:
+- a
+- t
+word: pubmed
+user_input: save

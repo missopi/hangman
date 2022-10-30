@@ -167,7 +167,7 @@ class Game
   def load_game
     filename = choose_game
     saved_file = File.open(File.join(Dir.pwd, "/saved_games/#{filename}.yaml"), 'r')
-    YAML.safe_load(saved_file)
+    YAML.safe_load(saved_file, permitted_classes: [Game])
   end
 
   def choose_game
@@ -181,5 +181,4 @@ class Game
   end
 end
 
-game = Game.new
-game.move
+Game.new.move
