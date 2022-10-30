@@ -6,16 +6,12 @@ letters:
 - f
 - g
 - h
-- i
 - j
 - k
-- l
-- m
-- "n"
 - p
 - q
+- r
 - s
-- t
 - u
 - v
 - w
@@ -24,6 +20,6 @@ letters:
 - z
 lives: 8
 incorrect_letters:
-- r
-word: negotiations
+- i
+word: montreal
 user_input: save

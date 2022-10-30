@@ -6,13 +6,9 @@ letters:
 - f
 - g
 - h
-- i
 - j
 - k
-- l
-- m
 - "n"
-- o
 - p
 - q
 - r
@@ -23,9 +19,8 @@ letters:
 - x
 - "y"
 - z
-lives: 7
+lives: 8
 incorrect_letters:
-- a
-- t
-word: pubmed
+- i
+word: montreal
 user_input: save
