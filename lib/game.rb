@@ -153,7 +153,7 @@ class Game
   def new_game
     puts 'Do you want to play a new game? (y/n)'
     new_game = gets.chomp.downcase
-    Game.new.move if new_game == 'y'
+    new_game == 'y' ? Game.new.move : exit
   end
 
   def save_game
