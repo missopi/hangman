@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'colour'
 
+# class for writing rules at the beginning of the game
 class Rules
   def initialize
     rules_start
@@ -9,7 +12,7 @@ class Rules
   def rules_start
     puts "\n======================= Hangman ========================\n\n".yellow
     puts "You will have 9 turns to guess the hidden word.\n\nEach wrong letter gets you a step closer to being hanged.\n\n"
-    puts ' --------  '  
+    puts ' --------  '
     puts ' |/     |  '
     puts ' |      O  '
     puts ' |     /|\ '
